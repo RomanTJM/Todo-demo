@@ -1,23 +1,67 @@
-import logo from './logo.svg';
 import './App.css';
+import AddTodo from './Components/AddTodo/AddTodo';
+import TitleTodo from './Components/TitleTodo/TitleTodo';
+import TodoList from './Components/TodoList/TodoList';
+import { query, 
+  collection,
+  onSnapshot,
+  updateDoc,
+  doc,
+  deleteDoc } from 'firebase/firestore';
+import { db } from './firebace';
+import { useEffect, useState } from 'react';
 
 function App() {
+  const [todos, setTodos] = useState([]);
+
+  useEffect(() => {
+    const q = query(collection(db, "todos"));
+    const unsub = onSnapshot(q, (querySnapshot) => {
+      let todosArray = [];
+      querySnapshot.forEach((doc) => {
+        todosArray.push({... doc.data(), id: doc.id});
+      });
+      setTodos(todosArray);
+    });
+    return () => unsub();
+  }, []);
+
+
+  // Редактирование
+  const handleEdit = async (todo, title) => {
+    await updateDoc(doc(db, "todos", todo.id), { title: title });
+  };
+
+  // Изменение статуса
+  const toggleComplete = async (todo) => {
+    await updateDoc(doc(db, "todos", todo.id), {
+      completed: !todo.completed
+    });
+  };
+
+  // Удаление
+  const handleDelete = async (id) => {
+    await deleteDoc(doc(db, "todos", id));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <TitleTodo />
+      </div>
+      <AddTodo />
+      <div>
+        {todos.map((todo) => (
+          <TodoList 
+            key={todo.id}
+            todo={todo}
+            handleEdit={handleEdit}
+            toggleComplete={toggleComplete}
+            handleDelete={handleDelete}
+          />
+        ))}
+      </div>
+      
     </div>
   );
 }
