@@ -32,12 +32,7 @@ function App() {
     await updateDoc(doc(db, "todos", todo.id), todo);
   };
 
-  // Изменение статуса
-  const toggleComplete = async (todo) => {
-    await updateDoc(doc(db, "todos", todo.id), {
-      completed: !todo.completed
-    });
-  };
+ 
 
   // Удаление
   const handleDelete = async (id) => {
@@ -57,8 +52,8 @@ function App() {
             todo={todo}
             completed={todo.completed}
             handleEdit={handleEdit}
-            toggleComplete={toggleComplete}
             handleDelete={handleDelete}
+
           />
         ))}
       </div>
