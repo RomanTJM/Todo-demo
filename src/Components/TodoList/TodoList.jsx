@@ -1,5 +1,4 @@
-import React from 'react'
-import { useState } from 'react'
+import React from 'react';
 
 export default function TodoList( {
     todo, 
@@ -7,32 +6,33 @@ export default function TodoList( {
     handleDelete,
     handleEdit,
     completed,
-}) {
-  const [newTitle, setNewTitle] = useState(todo.title);
-
-  const handleChange = (e) => {
-    e.preventDefault();
-    if(todo.completed === true) {
-        setNewTitle(todo.title);
-    } else {
-        todo.title = "";
-        setNewTitle(e.target.value);
-    }
-  };
+    data,
+}) 
+{
 
   return (
     <div>
         <input 
             type="text"
-            value={todo.title === "" ? newTitle : todo.title}
-            onChange={handleChange}
+            value={data.title}
+            onChange={(e) => handleEdit({...todo, title: e.target.value})}
+        />
+        <input 
+            type="text"
+            value={data.description}
+            onChange={(e) => handleEdit({...todo, description: e.target.value})}
+        />
+        <input 
+            type="date"
+            value={data.datecomplet}
+            onChange={(e) => handleEdit({...todo, datecomplet: e.target.value})}
         />
         <p>{completed ? "Завершено" : "В процессе"}</p>
         <div>
             <button onClick={() => toggleComplete(todo)}>
                 {completed ? "Не завершено" : "Завершено"}
             </button>
-            <button onClick={() => handleEdit(todo, newTitle)}>
+            <button>
                 Редактировать
             </button>
             <button onClick={() => handleDelete(todo.id)}>

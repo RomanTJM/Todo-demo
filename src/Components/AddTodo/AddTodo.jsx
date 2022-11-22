@@ -4,19 +4,23 @@ import { collection, addDoc } from 'firebase/firestore';
 import { useState } from 'react';
 
 export default function AddTodo() {
-    const [title, setTitle] = useState("");
+    const initialData = {
+        title: "",
+        description: "",
+        datecomplet: "",
+    }
+    const [data, setData] = useState(initialData);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if(title !== "") {
+        const { title, description, datecomplet } = data;
             await addDoc(collection(db, "todos"), {
                 title,
                 completed: false,
-                // description,
-                // datecomplet,
+                description,
+                datecomplet,
             });
-            setTitle("");
-        }
+            setData(initialData);
     }
 
   return (
@@ -25,21 +29,21 @@ export default function AddTodo() {
             <input 
                 type="text"
                 placeholder="Заголовок задачи"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                value={data.title}
+                onChange={(e) => setData({...data, title: e.target.value})}
             />
-            {/* <input 
+            <input 
                 type="text"
                 placeholder="Описание задачи"
-                value={description}
-                onChange={(e) => setTitle(e.target.value, "description")}
+                value={data.description}
+                onChange={(e) => setData({...data, description: e.target.value})}
             />
             <input 
                 type="date"
-                placeholder="Дата завершения"
-                value={datecomplet}
-                onChange={(e) => setTitle(e.target.value, "datecomplet")}
-            /> */}
+                placeholder="Заголовок задачи"
+                value={data.datecomplet}
+                onChange={(e) => setData({...data, datecomplet: e.target.value})}
+            />
         </div>
         <div>
             <button>Добавить</button>

@@ -28,8 +28,8 @@ function App() {
 
 
   // Редактирование
-  const handleEdit = async (todo, title) => {
-    await updateDoc(doc(db, "todos", todo.id), { title: title });
+  const handleEdit = async (todo) => {
+    await updateDoc(doc(db, "todos", todo.id), todo);
   };
 
   // Изменение статуса
@@ -59,8 +59,6 @@ function App() {
             handleEdit={handleEdit}
             toggleComplete={toggleComplete}
             handleDelete={handleDelete}
-            // description={todo.description}
-            // datecomplet={todo.description}
           />
         ))}
       </div>
