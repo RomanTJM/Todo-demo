@@ -10,6 +10,8 @@ export default function AddTodo() {
         datecomplet: "",
     }
     const [data, setData] = useState(initialData);
+    const [titleDirty, setTitleDirty] = useState(false);
+    const [titleErorr, setTitleErorr] = useState('Заголовок не может быть пустым');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -23,14 +25,25 @@ export default function AddTodo() {
             setData(initialData);
     }
 
+    const blurHandler = (e) => {
+        switch (e.target.name) {
+            case 'title':
+                setTitleDirty(true)
+                break
+        }
+    }
+
   return (
     <form onSubmit={handleSubmit}>
         <div>
+            {(titleDirty && titleErorr) && <div style={{color:'red'}}>{titleErorr}</div>}
             <input 
+                name='title'
                 type="text"
                 placeholder="Заголовок задачи"
                 value={data.title}
                 onChange={(e) => setData({...data, title: e.target.value})}
+                onBlur={e => blurHandler(e)}
             />
             <input 
                 type="text"

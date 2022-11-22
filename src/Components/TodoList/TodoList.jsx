@@ -57,7 +57,7 @@ export default function TodoList( {
             <button onClick={() => handleEdit({ ...todo, completed: !todo.completed })}>
                 {completed ? "Не завершено" : "Завершено"}
             </button>
-            <button onClick={!setEditTable}>
+            <button onClick={()=>setEditTable(!isEditTable)}>
                 {setEditTable ? "Редактировать" : "Сохранить"}
             </button>
             <button onClick={() => handleDelete(todo.id)}>
