@@ -55,9 +55,12 @@ function App() {
           <TodoList 
             key={todo.id}
             todo={todo}
+            completed={todo.completed}
             handleEdit={handleEdit}
             toggleComplete={toggleComplete}
             handleDelete={handleDelete}
+            // description={todo.description}
+            // datecomplet={todo.description}
           />
         ))}
       </div>

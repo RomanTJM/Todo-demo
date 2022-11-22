@@ -6,6 +6,7 @@ export default function TodoList( {
     toggleComplete,
     handleDelete,
     handleEdit,
+    completed,
 }) {
   const [newTitle, setNewTitle] = useState(todo.title);
 
@@ -26,20 +27,15 @@ export default function TodoList( {
             value={todo.title === "" ? newTitle : todo.title}
             onChange={handleChange}
         />
+        <p>{completed ? "Завершено" : "В процессе"}</p>
         <div>
-            <button
-                onClick={() => toggleComplete(todo)}
-            >
-                Завершено{/* {completed ? "Не завершено" : "Завершено"} */}
+            <button onClick={() => toggleComplete(todo)}>
+                {completed ? "Не завершено" : "Завершено"}
             </button>
-            <button
-                onClick={() => handleEdit(todo, newTitle)}
-            >
+            <button onClick={() => handleEdit(todo, newTitle)}>
                 Редактировать
             </button>
-            <button
-                onClick={() => handleDelete(todo.id)}
-            >
+            <button onClick={() => handleDelete(todo.id)}>
                 Удалить
             </button>
         </div>
