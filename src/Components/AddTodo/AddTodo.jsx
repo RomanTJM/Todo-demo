@@ -2,26 +2,24 @@ import React from 'react';
 import { db } from '../../firebace';
 import { collection, addDoc } from 'firebase/firestore';
 import { useState } from 'react';
-// import AddFiles from '../AddFiles/AddFiles';
+import AddFiles from '../AddFiles/AddFiles';
 
 export default function AddTodo() {
     const initialData = {
         title: "",
         description: "",
         datecomplet: "",
-        // files: "",
     }
     const [data, setData] = useState(initialData);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { title, description, datecomplet } = data; //files } = data;
+        const { title, description, datecomplet } = data; 
             await addDoc(collection(db, "todos"), {
                 title,
                 completed: false,
                 description,
                 datecomplet,
-                // files,
             });
             setData(initialData);
     }
@@ -49,19 +47,14 @@ export default function AddTodo() {
                 value={data.datecomplet}
                 onChange={(e) => setData({...data, datecomplet: e.target.value})}
             />
-            {/* <input 
-                type="file" 
-                value={data.files}
-                onChange={(e) => setData({...data, files: e.target.value})}
-            /> */}
-            
         </div>
         
         <div>
             <button>Добавить</button>
         </div>
+        <AddFiles />
     </form>
-    {/* <AddFiles /> */}
+    
     </div>
 
   )
