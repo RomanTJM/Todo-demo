@@ -11,9 +11,6 @@ export default function TodoList( {
 {
     const [isEditTable, setEditTable] = useState(false);
 
-    // const openFormEdit = (todo) => {
-    //     setEditTable(true);
-    //   }
 
   return (
     <div>
@@ -40,12 +37,20 @@ export default function TodoList( {
                         onChange={(e) => handleEdit({...todo, datecomplet: e.target.value})}
                     />
                 </p>
+                {/* <p>
+                    <input 
+                        type="file" 
+                        value={todo.files}
+                        onChange={(e) => handleEdit({...todo, files: e.target.value})}
+                     />
+                </p> */}
             </>
         ) : (
             <>
                 <h3>Задача: {todo.title}</h3>
                 <p>Описание задачи: {todo.description}</p>
                 <p>Дата выполнения: {todo.datecomplet}</p>
+                {/* <p>Вложенные файлы: {todo.files}</p> */}
             </>
         )
         }
@@ -58,7 +63,7 @@ export default function TodoList( {
                 {completed ? "Не завершено" : "Завершено"}
             </button>
             <button onClick={()=>setEditTable(!isEditTable)}>
-                {setEditTable ? "Редактировать" : "Сохранить"}
+                {isEditTable ? "Сохранить" : "Редактировать"}
             </button>
             <button onClick={() => handleDelete(todo.id)}>
                 Удалить

@@ -2,65 +2,67 @@ import React from 'react';
 import { db } from '../../firebace';
 import { collection, addDoc } from 'firebase/firestore';
 import { useState } from 'react';
+// import AddFiles from '../AddFiles/AddFiles';
 
 export default function AddTodo() {
     const initialData = {
         title: "",
         description: "",
         datecomplet: "",
+        // files: "",
     }
     const [data, setData] = useState(initialData);
-    const [titleDirty, setTitleDirty] = useState(false);
-    const [titleErorr, setTitleErorr] = useState('Заголовок не может быть пустым');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { title, description, datecomplet } = data;
+        const { title, description, datecomplet } = data; //files } = data;
             await addDoc(collection(db, "todos"), {
                 title,
                 completed: false,
                 description,
                 datecomplet,
+                // files,
             });
             setData(initialData);
     }
 
-    const blurHandler = (e) => {
-        switch (e.target.name) {
-            case 'title':
-                setTitleDirty(true)
-                break
-        }
-    }
-
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
+
+<form onSubmit={handleSubmit}>
         <div>
-            {(titleDirty && titleErorr) && <div style={{color:'red'}}>{titleErorr}</div>}
             <input 
-                name='title'
-                type="text"
+                type="text" required
                 placeholder="Заголовок задачи"
                 value={data.title}
                 onChange={(e) => setData({...data, title: e.target.value})}
-                onBlur={e => blurHandler(e)}
             />
             <input 
-                type="text"
+                type="text" required
                 placeholder="Описание задачи"
                 value={data.description}
                 onChange={(e) => setData({...data, description: e.target.value})}
             />
             <input 
-                type="date"
+                type="date" required
                 placeholder="Заголовок задачи"
                 value={data.datecomplet}
                 onChange={(e) => setData({...data, datecomplet: e.target.value})}
             />
+            {/* <input 
+                type="file" 
+                value={data.files}
+                onChange={(e) => setData({...data, files: e.target.value})}
+            /> */}
+            
         </div>
+        
         <div>
             <button>Добавить</button>
         </div>
     </form>
+    {/* <AddFiles /> */}
+    </div>
+
   )
 }
