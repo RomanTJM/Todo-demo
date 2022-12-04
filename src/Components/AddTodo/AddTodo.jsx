@@ -11,6 +11,7 @@ export default function AddTodo() {
         datecomplet: "",
     }
     const [data, setData] = useState(initialData);
+    // const [fileUrl, setFileUrl] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,6 +21,7 @@ export default function AddTodo() {
                 completed: false,
                 description,
                 datecomplet,
+                // file: fileUrl,
             });
             setData(initialData);
     }
@@ -47,14 +49,18 @@ export default function AddTodo() {
                 value={data.datecomplet}
                 onChange={(e) => setData({...data, datecomplet: e.target.value})}
             />
+            {/* <input 
+                type="file" 
+                value={data.file}
+                onChange={(e) => setData({...data, datecomplet: e.target.value})}
+            /> */}
         </div>
         
         <div>
             <button>Добавить</button>
         </div>
-        <AddFiles />
     </form>
-    
+    <AddFiles />
     </div>
 
   )

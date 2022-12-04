@@ -6,6 +6,7 @@ export default function TodoList( {
     handleDelete,
     handleEdit,
     completed,
+    // fileUrl
    
 }) 
 {
@@ -43,7 +44,7 @@ export default function TodoList( {
                 <h3>Задача: {todo.title}</h3>
                 <p>Описание задачи: {todo.description}</p>
                 <p>Дата выполнения: {todo.datecomplet}</p>
-                <a href='https://firebasestorage.googleapis.com/v0/b/react-todo-14f94.appspot.com/o/files%2F%7B5AE523F7-6094-48A6-80BE-63AF74CCBB50%7D.png.jpg?alt=media&token=53583b6a-a6e1-4fff-870e-dbecbcf78149'></a>
+                {/* <a target="_blank" href={fileUrl}>{fileUrl}</a> */}
                 
             </>
             
