@@ -10,8 +10,9 @@ export default function AddTodo() {
         description: "",
         datecomplet: "",
     }
+
     const [data, setData] = useState(initialData);
-    // const [fileUrl, setFileUrl] = useState("");
+    const [fileUrl, setFileUrl] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -21,47 +22,42 @@ export default function AddTodo() {
                 completed: false,
                 description,
                 datecomplet,
-                // file: fileUrl,
+                file: fileUrl,
             });
             setData(initialData);
+            setFileUrl(null);
     }
 
   return (
-    <div>
-
-<form onSubmit={handleSubmit}>
-        <div>
-            <input 
-                type="text" required
-                placeholder="Заголовок задачи"
-                value={data.title}
-                onChange={(e) => setData({...data, title: e.target.value})}
-            />
-            <input 
-                type="text" required
-                placeholder="Описание задачи"
-                value={data.description}
-                onChange={(e) => setData({...data, description: e.target.value})}
-            />
-            <input 
-                type="date" required
-                placeholder="Заголовок задачи"
-                value={data.datecomplet}
-                onChange={(e) => setData({...data, datecomplet: e.target.value})}
-            />
-            {/* <input 
-                type="file" 
-                value={data.file}
-                onChange={(e) => setData({...data, datecomplet: e.target.value})}
-            /> */}
-        </div>
-        
-        <div>
-            <button>Добавить</button>
-        </div>
-    </form>
-    <AddFiles />
+    <div className='add-todo'>
+        <form onSubmit={handleSubmit}>
+            <div className='form-input-add'>
+                <input
+                    className='input-add' 
+                    type="text" required
+                    placeholder="Заголовок задачи"
+                    value={data.title}
+                    onChange={(e) => setData({...data, title: e.target.value})}
+                />
+                <textarea 
+                    className='textarea-add'
+                    type="text" required
+                    placeholder="Описание задачи"
+                    value={data.description}
+                    onChange={(e) => setData({...data, description: e.target.value})}
+                />
+                <input 
+                    className='input-date-app'
+                    type="date" required
+                    value={data.datecomplet}
+                    onChange={(e) => setData({...data, datecomplet: e.target.value})}
+                />
+            </div>
+            <AddFiles setFileUrl={setFileUrl}/>
+            <div>
+                <button className='form-btn'>Добавить задачу</button>
+            </div>
+        </form>
     </div>
-
-  )
+  );
 }
